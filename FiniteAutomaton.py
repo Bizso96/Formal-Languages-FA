@@ -1,11 +1,12 @@
 from FAException import FAException
 
 
-class FiniteAutomata:
+class FiniteAutomaton:
     def __init__(self, file_name):
         self.states = []
         self.alphabet = []
         self.transitions = []
+        self.initial_state = None
         self.final_states = []
         self.valid = True
         self.DFA = True
@@ -25,6 +26,7 @@ class FiniteAutomata:
             return
 
         lines = file.readlines()
+        file.close()
         for line in lines:
             split_by_comma = line.split(':')
             key = split_by_comma[0]
@@ -35,6 +37,8 @@ class FiniteAutomata:
 
     def interpret_states(self, states_string):
         self.states = states_string.strip().replace(' ', '').split(';')
+        if len(self.states) > 0:
+            self.initial_state = self.states[0]
 
     def interpret_alphabet(self, alphabet_string):
         alphabet = alphabet_string.strip().replace(' ', '').split(';')
@@ -100,7 +104,26 @@ class FiniteAutomata:
         return buffer
 
     def check_sequence_validity(self, sequence):
-        pass
+        if not self.DFA:
+            print("Not a DFA")
+        current_state = self.initial_state
+        for step in sequence:
+            print("Current state: " + current_state)
+            go = False
+            for t in self.transitions:
+                if t.origin == current_state and t.action == step:
+                    current_state = t.destination
+                    print("Transition: " + str(t))
+                    go = True
+                    break
+
+            if not go:
+                return False
+
+        if current_state not in self.final_states:
+            return False
+
+        return True
 
 class Transition:
     def __init__(self, origin, action, destination):
