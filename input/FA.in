@@ -1,0 +1,4 @@
+Set of states: q0; q1; q2; q3
+Alphabet: a; b
+Transitions: d(q0, a) = q1; d(q0, b) = q3; d(q1, a) = q2; d(q2, a) = q3; d(q2, b) = q0
+Final states: q3

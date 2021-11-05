@@ -1,0 +1,2 @@
+class FAException(Exception):
+    pass
