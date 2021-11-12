@@ -2,7 +2,6 @@ from FAException import FAException
 from FiniteAutomaton import FiniteAutomaton
 from Menu import Menu
 
-fa = FiniteAutomaton("FA.in")
 
 try:
     finiteAutomaton = FiniteAutomaton("FA.in")
@@ -10,7 +9,7 @@ try:
     print("DFA: " + str(finiteAutomaton.DFA))
     print()
 
-    menu = Menu(fa)
+    menu = Menu(finiteAutomaton)
     menu.display_commands()
     menu.get_input()
 
