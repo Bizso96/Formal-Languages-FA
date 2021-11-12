@@ -1,0 +1,18 @@
+digit ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+letter ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z"
+
+state ::= {letter | digit}
+set_of_states ::= {state ";"} state
+
+alphabet_element ::= letter | digit
+alphabet ::= {alphabet_element ";"} alphabet_element
+
+transition ::= "d{" state alphabet_element "} = " state
+transitions ::= {transition ";"} transition
+
+
+FA.in ::=
+    "Set of states: " set_of_states
+    "Alphabet: " alphabet
+    "Transitions: " transitions
+    "Final states: " set_of_states

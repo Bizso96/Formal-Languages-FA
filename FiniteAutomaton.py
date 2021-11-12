@@ -58,12 +58,15 @@ class FiniteAutomaton:
             destination = split_by_eq[1].strip()
 
             if origin not in self.states:
+                self.valid = False
                 raise FAException(action_string + " -> " + "Origin: " + origin + " not a valid state")
 
             if destination not in self.states:
+                self.valid = False
                 raise FAException(action_string + " -> " + "Destination: " + destination + " not a valid state")
 
             if action not in self.alphabet:
+                self.valid = False
                 raise FAException(action_string + " -> " + "Action: " + action + " not a valid action")
 
             new_transition = Transition(origin, action, destination)
@@ -79,6 +82,7 @@ class FiniteAutomaton:
 
         for fs in final_states:
             if fs not in self.states:
+                self.valid = False
                 raise FAException("Final state: " + fs + " not a valid state")
 
             self.final_states.append(fs)
@@ -106,6 +110,8 @@ class FiniteAutomaton:
     def check_sequence_validity(self, sequence):
         if not self.DFA:
             print("Not a DFA")
+            return False
+
         current_state = self.initial_state
         for step in sequence:
             print("Current state: " + current_state)
@@ -124,6 +130,7 @@ class FiniteAutomaton:
             return False
 
         return True
+
 
 class Transition:
     def __init__(self, origin, action, destination):
